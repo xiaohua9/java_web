@@ -45,13 +45,13 @@ public class UserDaoImpl implements UserDaoI {
     @Override
     public int update(User user) {
         //构造sql字符串
-        String sql="update user set userName=? where userPassword=?";
+        String sql="update user set userPassword=? where userName=?";
         //构造sql执行对象
         QueryRunner runner=new QueryRunner(dataSource);
         //调用工具执行sql
         int flag=0;//sql影响的行数
         try {
-            flag=runner.update(sql,user.getUserName(),user.getUserPassword());
+            flag=runner.update(sql,user.getUserPassword(),user.getUserName());
         } catch (SQLException e) {
             e.printStackTrace();
         }

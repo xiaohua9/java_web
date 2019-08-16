@@ -10,6 +10,11 @@ public class User {
     //构造方法
     public User() {
     }
+
+    public User(String userName) {
+        this.userName = userName;
+    }
+
     public User(String userName, String userPassword) {
         this.userName = userName;
         UserPassword = userPassword;
