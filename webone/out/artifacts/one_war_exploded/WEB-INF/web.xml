@@ -48,4 +48,13 @@
         <servlet-name>ChangeUserServlet</servlet-name>
         <url-pattern>/login/change</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>Myfilter</filter-name>
+        <filter-class>com.learn.web.Myfilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Myfilter</filter-name>
+        <url-pattern>/login/addUser.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
