@@ -7,11 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d6d933e-a473-48cb-93e8-20f58315d2ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/learn/web/AddUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/web/AddUserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/web/ChangeUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/web/ChangeUserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/web/DeleteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/web/DeleteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/web/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/web/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/login/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/login/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/login/updateUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login/updateUser.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,7 +45,7 @@
           <entry key="class" value="1" />
           <entry key="iml" value="3" />
           <entry key="java" value="25" />
-          <entry key="jsp" value="23" />
+          <entry key="jsp" value="24" />
           <entry key="xml" value="18" />
         </counts>
       </usages-collector>
@@ -56,7 +54,7 @@
           <entry key="CLASS" value="1" />
           <entry key="IDEA_MODULE" value="3" />
           <entry key="JAVA" value="25" />
-          <entry key="JSP" value="23" />
+          <entry key="JSP" value="24" />
           <entry key="XML" value="18" />
         </counts>
       </usages-collector>
@@ -64,14 +62,14 @@
         <counts>
           <entry key="dummy" value="15" />
           <entry key="java" value="2573" />
-          <entry key="jsp" value="952" />
+          <entry key="jsp" value="2616" />
           <entry key="xml" value="345" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="2573" />
-          <entry key="JSP" value="952" />
+          <entry key="JSP" value="2616" />
           <entry key="PLAIN_TEXT" value="15" />
           <entry key="XML" value="345" />
         </counts>
@@ -89,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/learn/web/AddUserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1150">
-              <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+            <state relative-caret-position="-341">
+              <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -125,11 +123,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/login/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
+            <state relative-caret-position="409">
+              <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -137,8 +135,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/login/updateUser.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+            <state relative-caret-position="184">
+              <caret line="48" column="70" lean-forward="true" selection-start-line="48" selection-start-column="70" selection-end-line="48" selection-end-column="70" />
             </state>
           </provider>
         </entry>
@@ -146,8 +144,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/login/success.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="115">
               <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/login/addUser.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -199,12 +206,9 @@
         <option value="$PROJECT_DIR$/src/com/learn/dao/impl/PersonDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/com/learn/dao/UserDaoI.java" />
         <option value="$PROJECT_DIR$/src/c3p0-config.xml" />
-        <option value="$PROJECT_DIR$/web/login/login.jsp" />
-        <option value="$PROJECT_DIR$/web/login/addUser.jsp" />
         <option value="$PROJECT_DIR$/web/login/addSuccess.jsp" />
         <option value="$PROJECT_DIR$/src/com/learn/web/FindAllServlet.java" />
         <option value="$PROJECT_DIR$/src/com/learn/entity/User.java" />
-        <option value="$PROJECT_DIR$/web/login/updateUser.jsp" />
         <option value="$PROJECT_DIR$/src/com/learn/dao/impl/UserDaoImpl.java" />
         <option value="$PROJECT_DIR$/web/login/success.jsp" />
         <option value="$PROJECT_DIR$/src/com/learn/web/Myfilter.java" />
@@ -213,6 +217,9 @@
         <option value="$PROJECT_DIR$/src/com/learn/web/DeleteServlet.java" />
         <option value="$PROJECT_DIR$/src/com/learn/web/ChangeUserServlet.java" />
         <option value="$PROJECT_DIR$/src/com/learn/web/AddUserServlet.java" />
+        <option value="$PROJECT_DIR$/web/login/addUser.jsp" />
+        <option value="$PROJECT_DIR$/web/login/updateUser.jsp" />
+        <option value="$PROJECT_DIR$/web/login/login.jsp" />
       </list>
     </option>
   </component>
@@ -304,7 +311,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1566089875724" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1566100431788" />
     <property name="last_opened_file_path" value="D:/beidabirdschool/jarFile/commons-dbutils-1.6.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -337,7 +344,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 7">
+    <configuration name="login.jsp" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:8080/login/login.jsp">
+      <method v="2" />
+    </configuration>
     <configuration name="Tomcat 7" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.963" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
@@ -412,6 +422,15 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Tomcat Server.Tomcat 7" />
+      <item itemvalue="JavaScript Debug.login.jsp" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.login.jsp" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -428,12 +447,12 @@
       <workItem from="1565913436978" duration="7494000" />
       <workItem from="1565931457812" duration="18991000" />
       <workItem from="1566009846688" duration="1562000" />
-      <workItem from="1566088574883" duration="1399000" />
+      <workItem from="1566088574883" duration="11310000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54322000" />
+    <option name="totallyTimeSpent" value="64233000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -448,7 +467,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.21785174" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.21785174" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -458,8 +477,8 @@
       <window_info id="Web" order="7" sideWeight="0.500821" side_tool="true" weight="0.13918306" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32840723" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.30706075" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24466339" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39901477" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32840723" />
@@ -566,48 +585,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/login/addUser.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/c3p0-config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/login/updateUser.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/learn/web/LoginServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/login/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/login/success.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -650,11 +631,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/learn/web/AddUserServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1150">
-          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+        <state relative-caret-position="-341">
+          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/learn/web/LoginServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login/success.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login/addUser.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login/updateUser.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="48" column="70" lean-forward="true" selection-start-line="48" selection-start-column="70" selection-end-line="48" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
         </state>
       </provider>
     </entry>
