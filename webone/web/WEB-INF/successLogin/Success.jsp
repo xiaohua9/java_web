@@ -18,7 +18,7 @@
             <td>用户名称</td><td>用户密码</td><td>操作</td>
         </tr>
         <%
-            List<User> users = (List<User>)session.getAttribute("list");/*//获取服务器传来的会话的数据*/
+            List<User> users = (List<User>)request.getAttribute("list");/*//获取服务器传来的会话的数据*/
             for (User user:users) {
         %>
         <tr>
@@ -30,8 +30,8 @@
             }
         %>
     </table>
-    <a href="/login/addUser.jsp" style="font-size: 50px">添加</a><br/>
-    <a href="/login/updateUser.jsp" style="font-size: 50px">更改数据</a>
+    <a href="/WEB-INF/LoginSuccess/addUser.jsp" style="font-size: 50px">添加</a><br/>
+    <a href="/login/UpdateUser.jsp" style="font-size: 50px">更改数据</a>
     <%--jsp真的太美妙了，让Java和HTML你中有我，我中有你，完美得融合在一起，然后取长补短--%>
 </body>
 </html>
