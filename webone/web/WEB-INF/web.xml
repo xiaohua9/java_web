@@ -17,7 +17,7 @@
     </servlet-mapping>
     &lt;!&ndash;设置默认访问页面，即只访问到服务器就可以默认得到的页面&ndash;&gt;
     <welcome-file-list>
-        <welcome-file>/login/login.jsp</welcome-file>
+        <welcome-file>/login/Login.jsp</welcome-file>
     </welcome-file-list>
 
     &lt;!&ndash;注册组件&ndash;&gt;
@@ -55,6 +55,6 @@
     </filter>
     <filter-mapping>
         <filter-name>Myfilter</filter-name>
-        <url-pattern>/login/addUser.jsp</url-pattern>
+        <url-pattern>/login/AddUser.jsp</url-pattern>
     </filter-mapping>-->
 </web-app>

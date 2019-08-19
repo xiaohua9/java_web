@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserServlet",urlPatterns = "/login/userServlet")
+@WebServlet(name = "UserServlet",urlPatterns = {"/login/userServlet","/WEB-INF/LoginSuccess/UserServlet"})
 public class UserServlet extends HttpServlet {
     //请求的总控制中心
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +23,10 @@ public class UserServlet extends HttpServlet {
             this.doAdd(request,response);
         }else if ("delete".equals(method)){
             this.doDelete(request,response);
-        }else if ("change".equals(method)){
+        }else if ("changePage".equals(method)){
+            this.getChangePage(request,response);
+        }
+        else if ("change".equals(method)){
             this.doChange(request,response);
         }
     }
@@ -39,12 +42,11 @@ public class UserServlet extends HttpServlet {
         UserDaoImpl dao=new UserDaoImpl();//构建一个用户表的数据访问对象
         List<User> users = dao.selectAll();//获取所有的用户列表
         if (users.contains(user)){
-            HttpSession session = req.getSession();//获取会话
-            session.setAttribute("list",users);//将数据封装到会话中
-            resp.sendRedirect("/login/success.jsp");
+            req.setAttribute("list",users);//封装数据到请求中
+            req.getRequestDispatcher("/WEB-INF/successLogin/Success.jsp").forward(req,resp);
         }else {//用户名和密码在数据库中不存在
             resp.setContentType("text/html;charset=UTF-8");
-            resp.getWriter().print("<script>alert('用户名或密码错误');location.href='/login/login.jsp'</script>");
+            resp.getWriter().print("<script>alert('用户名或密码错误');location.href='/login/Login.jsp'</script>");
         }
     }
     //增加服务中心
@@ -62,14 +64,13 @@ public class UserServlet extends HttpServlet {
         int flag=dao.insert(user);
         if (flag>0){
             //插入成功，直接登录
-            HttpSession session = req.getSession();//获取会话
             List<User> users = dao.selectAll();//获取全部数据
-            session.setAttribute("list",users);//将数据封装到会话中
-            resp.sendRedirect("/login/success.jsp");
+            req.setAttribute("list",users);//封装数据到请求中
+            req.getRequestDispatcher("/WEB-INF/successLogin/Success.jsp").forward(req,resp);
         }else {//用户已经存在，继续留在登录页面
             resp.setContentType("text/html;charset=UTF-8");//设置返回内容的编码格式
             //给出提示，返回注册页面
-            resp.getWriter().print("<script>alert('用户已经存在');location.href='/login/addUser.jsp'</script>");
+            resp.getWriter().print("<script>alert('用户已经存在');location.href='/login/AddUser.jsp'</script>");
 
         }
 
@@ -86,10 +87,12 @@ public class UserServlet extends HttpServlet {
         //然后将删除后的数据返回
         //因为删除是针对确定已经有的数据进行，所以无需判断，直接返回结果
         List<User> users = dao.selectAll();
-        //构建会话，封装数据，伴随着页面一同返给请求方
-        HttpSession session = req.getSession();
-        session.setAttribute("list",users);
-        resp.sendRedirect("/login/success.jsp");
+        req.setAttribute("list",users);//封装数据到请求中
+        req.getRequestDispatcher("/WEB-INF/successLogin/Success.jsp").forward(req,resp);
+    }
+    //获得更改数据的页面
+    protected void getChangePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/successLogin/UpdateUser.jsp").forward(req,resp);
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -99,13 +102,12 @@ public class UserServlet extends HttpServlet {
         int update = dao.update(user);
         if (update>0){
             List<User> users = dao.selectAll();//获取当前数据库的所有信息
-            HttpSession session = req.getSession();//获取与请求方的会话
-            session.setAttribute("list",users);//封装数据到会话中
-            resp.sendRedirect("/login/success.jsp");//回馈页面
+            req.setAttribute("list",users);//封装数据到请求中
+            req.getRequestDispatcher("/WEB-INF/successLogin/Success.jsp").forward(req,resp);
         }else {
             resp.setContentType("text/html;charset=UTF-8");//设置回应数据的编码
             //提示错误信息，并返回更改页面
-            resp.getWriter().print("<script>alert('你要更改的用户不存在');location.href='/login/updateUser.jsp'</script>");
+            resp.getWriter().print("<script>alert('你要更改的用户不存在');location.href='/login/userServlet?method=changePage'</script>");
         }
     }
 }

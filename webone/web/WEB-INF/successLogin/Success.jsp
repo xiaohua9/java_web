@@ -30,8 +30,8 @@
             }
         %>
     </table>
-    <a href="/WEB-INF/LoginSuccess/addUser.jsp" style="font-size: 50px">添加</a><br/>
-    <a href="/login/UpdateUser.jsp" style="font-size: 50px">更改数据</a>
+    <a href="/login/AddUser.jsp" style="font-size: 50px">添加</a><br/>
+    <a href="userServlet?method=changePage" style="font-size: 50px">更改数据</a>
     <%--jsp真的太美妙了，让Java和HTML你中有我，我中有你，完美得融合在一起，然后取长补短--%>
 </body>
 </html>
