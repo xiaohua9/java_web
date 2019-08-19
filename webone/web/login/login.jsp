@@ -47,7 +47,8 @@
     </script>
 </head>
 <body>
-    <form action="login" method="post" onsubmit="return checkDate()">
+    <form action="userServlet" method="post" onsubmit="return checkDate()">
+        <input type="hidden" name="method" value="login"/><%--登录识别--%>
         用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
         <span id="error1" ></span><br/>
         用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPwd" onblur="checkUserPwd()"/>

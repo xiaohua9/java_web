@@ -24,7 +24,7 @@
         <tr>
             <td><%=user.getUserName()%></td>
             <td><%=user.getUserPassword()%></td>
-            <td><a href="delete?userName=<%=user.getUserName()%>">删除</a></td>
+            <td><a href="userServlet?method=delete&userName=<%=user.getUserName()%>">删除</a></td>
         </tr>
         <%
             }

@@ -46,7 +46,8 @@
     </script>
 </head>
 <body>
-    <form action="change" method="post" onsubmit="return checkDate()">
+    <form action="userServlet" method="post" onsubmit="return checkDate()">
+        <input type="hidden" name="method" value="change"/><%--更新识别--%>
         用户名称：<input type="text" name="userName" id="userName" onblur="checkUserName()"/>
         <span id="userNameError"></span><br/>
         更新密码：<input type="text" name="userPassword" id="userPassword" onblur="checkUserPassword()"/>

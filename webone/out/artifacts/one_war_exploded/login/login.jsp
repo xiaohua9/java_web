@@ -47,7 +47,8 @@
     </script>
 </head>
 <body>
-    <form action="login" method="post" onsubmit="return checkDate()">
+    <form action="userServlet" method="post" onsubmit="return checkDate()">
+        <input type="hidden" name="method" value="login"/><%--登录识别--%>
         用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
         <span id="error1" ></span><br/>
         用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPwd" onblur="checkUserPwd()"/>
@@ -58,5 +59,6 @@
     <a href="/login/addUser.jsp">注册</a>
 </body>
 </html>
+<%--表单验证存在的理由在于：可以分担一些后端服务器的运算压力--%>
 <%--表单验证的思路（如何让用户的体验更加优质）：首先在每一个表单提交项失去焦点时根据判断规则给与提示，
 最后在表单提交时就不用给提示了，直接根据已定的规则判断是否让整个表单他提交到服务器--%>
