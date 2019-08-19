@@ -45,18 +45,38 @@
 
         }
     </script>
+    <style>
+        body{
+            background-color:lightgoldenrodyellow;
+        }
+        div{
+            margin-left: 400px;
+            margin-top: 280px;
+        }
+        form{
+            font-size: 40px;
+        }
+        input{
+            font-size: 30px;
+        }
+        a{
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-    <form action="userServlet" method="post" onsubmit="return checkDate()">
-        <input type="hidden" name="method" value="login"/><%--登录识别--%>
-        用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
-        <span id="error1" ></span><br/>
-        用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPwd" onblur="checkUserPwd()"/>
-        <span id="error2"></span><br/><br/>
-        <input type="submit" value="登录"/>
-        <input type="reset" value="重置"/>
-    </form>
-    <a href="/login/addUser.jsp">注册</a>
+    <div>
+        <form action="userServlet" method="post" onsubmit="return checkDate()">
+            <input type="hidden" name="method" value="login"/><%--登录识别--%>
+            用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
+            <span id="error1" ></span><br/>
+            用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPwd" onblur="checkUserPwd()"/>
+            <span id="error2"></span><br/><br/>
+            <input type="submit" value="登录"/>
+            <input type="reset" value="重置"/>
+        </form>
+        <a href="/login/addUser.jsp">注册</a>
+    </div>
 </body>
 </html>
 <%--表单验证存在的理由在于：可以分担一些后端服务器的运算压力--%>
