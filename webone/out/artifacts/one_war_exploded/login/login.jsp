@@ -75,7 +75,7 @@
             <input type="submit" value="登录"/>
             <input type="reset" value="重置"/>
         </form>
-        <a href="/WEB-INF/LoginSuccess/addUser.jsp">注册</a>
+        <a href="/login/AddUser.jsp">注册</a>
     </div>
 </body>
 </html>

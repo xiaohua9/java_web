@@ -12,7 +12,18 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>登陆成功</h1>
+    <%//获取当前登录的用户对象
+        User currentUser = (User) session.getAttribute("currentUser");
+    %>
+    <%
+        //登录成功才会有currentUser,直接访问和登录失败，自然currentUser 为空
+        if (currentUser==null){
+     %>
+        <script>location.href="/login/Login.jsp"</script>
+    <%
+        }else {//在登录成功的情况下，才能得到登录的页面
+    %>
+    <h1>当前登陆用户：<%=currentUser.getUserName() %></h1>
     <table border="1px" width="500px" height="100px">
         <tr>
             <td>用户名称</td><td>用户密码</td><td>操作</td>
@@ -31,7 +42,10 @@
         %>
     </table>
     <a href="/login/AddUser.jsp" style="font-size: 50px">添加</a><br/>
-    <a href="userServlet?method=changePage" style="font-size: 50px">更改数据</a>
+    <a href="/login/UpdateUser.jsp" style="font-size: 50px">更改数据</a>
     <%--jsp真的太美妙了，让Java和HTML你中有我，我中有你，完美得融合在一起，然后取长补短--%>
+    <%
+        }
+    %>
 </body>
 </html>
