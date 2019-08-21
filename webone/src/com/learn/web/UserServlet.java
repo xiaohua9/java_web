@@ -2,6 +2,7 @@ package com.learn.web;
 
 import com.learn.dao.impl.UserDaoImpl;
 import com.learn.entity.User;
+import com.learn.utils.PageBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,8 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     //请求的总控制中心
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //将前端的请求数据解码
+        request.setCharacterEncoding("utf-8");
         String method = request.getParameter("method");//获取识别码
         if ("login".equals(method)){
             this.doLogin(request,response);
@@ -25,6 +28,8 @@ public class UserServlet extends HttpServlet {
             this.doDelete(request,response);
         } else if ("change".equals(method)){
             this.doChange(request,response);
+        }else {
+            this.doFindAll(request,response);
         }
     }
 
@@ -34,15 +39,13 @@ public class UserServlet extends HttpServlet {
     //登录服务中心
     protected void doLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");//获取表单元素值
-        String userPwd = req.getParameter("userPwd");
-        User user=new User(userName,userPwd);//当前试图登陆的用户
+        String userPassword = req.getParameter("userPwd");
         UserDaoImpl dao=new UserDaoImpl();//构建一个用户表的数据访问对象
-        List<User> users = dao.selectAll();//获取所有的用户列表
-        if (users.contains(user)){
+        User user=dao.login(userName,userPassword);
+        if (user!=null){
             HttpSession session = req.getSession();//获取会话
             session.setAttribute("currentUser",user);//将当前登录的用户封装到会话中，用于后续网页的展示与判断（多页面展示）
-            req.setAttribute("list",users);//将所有的用户信息封装数据到请求中（单页面展示）
-            req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
+            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {//用户名和密码在数据库中不存在
             resp.setContentType("text/html;charset=UTF-8");
             resp.getWriter().print("<script>alert('用户名或密码错误');location.href='/login/Login.jsp'</script>");
@@ -50,13 +53,15 @@ public class UserServlet extends HttpServlet {
     }
     //增加服务中心
     protected void doAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //将前端的请求数据解码
-        req.setCharacterEncoding("utf-8");
         //获取前端提交的信息
         String userName = req.getParameter("userName");
         String userPassword = req.getParameter("userPassword");
+        String userGender = req.getParameter("userGender");
+        String userAge = req.getParameter("userAge");
+        String userAddress = req.getParameter("userAddress");
+        String userBirthday = req.getParameter("userBirthday");
         //将前端数据构成一个用户对象
-        User user=new User(userName,userPassword);
+        User user=new User(userName,userPassword,userGender,Integer.parseInt(userAge),userAddress,userBirthday);
         //构建一个用户的数据访问对象
         UserDaoImpl dao=new UserDaoImpl();
         //将数据加入数据库，flag接收影响的行数
@@ -65,51 +70,56 @@ public class UserServlet extends HttpServlet {
             //插入成功，直接登录
             HttpSession session = req.getSession();//获取会话
             session.setAttribute("currentUser",user);//将当前登录的用户封装到会话中，用于后续网页的展示与判断（多页面展示）
-            List<User> users = dao.selectAll();//获取全部数据
-            req.setAttribute("list",users);//封装数据到请求中
-            req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
+            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {//用户已经存在，继续留在登录页面
             resp.setContentType("text/html;charset=UTF-8");//设置返回内容的编码格式
             //给出提示，返回注册页面
             resp.getWriter().print("<script>alert('用户已经存在');location.href='/login/AddUser.jsp'</script>");
 
         }
-
     }
     //删除服务中心
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //通过判断是否具有当前登录用户，可以过滤掉直接地址栏访问的请求
         if (req.getSession().getAttribute("currentUser")!=null) {
-            //将前端的请求数据解码
-            req.setCharacterEncoding("utf-8");
             String userName = req.getParameter("userName");//获取超链接提交的需要删除的用户名
             userName=new String(userName.getBytes("iso-8859-1"),"UTF-8");
             UserDaoImpl dao=new UserDaoImpl();
             User user=new User(userName);
-            int delete = dao.delete(user);//删除成功返回1，否则为0
+            dao.delete(user);//删除
             //然后将删除后的数据返回
-            //因为删除是针对确定已经有的数据进行，所以无需判断，直接返回结果
-            List<User> users = dao.selectAll();
-            req.setAttribute("list",users);//封装数据到请求中
-            req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
+            //因为删除是针对确定已经有的数据进行，所以无需判断，直接转向查所有组件
+            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {//如果有人试图想不登录删除，我就让他去登录
             resp.sendRedirect("/login/Login.jsp");
         }
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");//先将请求数据以utf-8编码
-        User user=new User(req.getParameter("userName"),req.getParameter("userPassword"));//以提交信息构造对象
+        User user=new User(req.getParameter("userName"),req.getParameter("userPassword"),req.getParameter("userGender"),Integer.parseInt(req.getParameter("userAge")),req.getParameter("userAddress"),req.getParameter("userBirthday"));//以提交信息构造对象
         UserDaoImpl dao=new UserDaoImpl();
         int update = dao.update(user);
         if (update>0){
-            List<User> users = dao.selectAll();//获取当前数据库的所有信息
-            req.setAttribute("list",users);//封装数据到请求中
-            req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
+            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {
             resp.setContentType("text/html;charset=UTF-8");//设置回应数据的编码
             //提示错误信息，并返回更改页面
             resp.getWriter().print("<script>alert('你要更改的用户不存在');location.href='/login/UpdateUser.jsp'</script>");
         }
+    }
+    //查找服务中心
+    protected void doFindAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDaoImpl dao=new UserDaoImpl();
+        PageBean pageBean = new PageBean();//构造一个页面显示信息类对象
+        pageBean.setRows(dao.selectCount());//获取总行数，并赋值
+        int currentPage =pageBean.getCurrentPage();
+        String selectPage = req.getParameter("currentPage");
+        if (selectPage!=null){
+            currentPage = Integer.parseInt(req.getParameter("currentPage"));
+        }
+        List<User> users = dao.selectAll(currentPage,pageBean.getPageSize());//获取分页数据
+        req.setAttribute("list",users);//封装数据到请求中
+        req.setAttribute("pageBean",pageBean);
+        req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
     }
 }

@@ -61,10 +61,14 @@
     <h1>当前登陆用户：<%=currentUser.getUserName() %></h1>
     <form action="userServlet" method="post" onsubmit="return checkDate()">
         <input type="hidden" name="method" value="change"/><%--更新识别--%>
-        用户名称：<input type="text" name="userName" id="userName" onblur="checkUserName()"/>
-        <span id="userNameError"></span><br/>
-        更新密码：<input type="text" name="userPassword" id="userPassword" onblur="checkUserPassword()"/>
+        用户名称：<%=request.getParameter("userName")%><br/>
+        <input type="hidden" name="userName" id="userName" value="<%=request.getParameter("userName")%>"/>
+        更新密码：<input type="text" name="userPassword" id="userPassword" value="<%=request.getParameter("userPassword")%>" onblur="checkUserPassword()"/>
         <span id="userPasswordError"></span><br/>
+        用户性别：<input type="text" name="userGender" id="userGender" value="<%=new String(request.getParameter("userGender").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserGender()"/><br/>
+        用户年龄：<input type="text" name="userAge" id="userAge" value="<%=request.getParameter("userAge")%>" onblur="checkUserAge()"/><br/>
+        用户地址：<input type="text" name="userAddress" id="userAddress" value="<%=new String(request.getParameter("userAddress").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserAddress()"/><br/>
+        用户生日：<input type="text" name="userBirthday" id="userBirthday" value="<%=request.getParameter("userBirthday")%>" onblur="checkUserBirthday()"/><br/>
         <input type="submit" value="确定"/>
     </form>
     <%

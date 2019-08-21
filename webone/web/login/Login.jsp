@@ -9,69 +9,17 @@
 <html>
 <head>
     <title>登陆</title>
-    <script type="text/javascript">
-        //表单提交验证方法
-        function checkDate() {
-            var flag=true;
-            if (userName.value.length <1 ){
-                flag=false;//用户名为空时报错
-                error1.style.color="red";
-                error1.innerText="用户名不能为空";
-            }
-            if (userPwd.value.length < 6){
-                flag=false;//密码小于6位时报错
-                error2.style.color="red";
-                error2.innerText="密码不能小于6位";
-            }
-            return flag;
-        }
-        //用户名的失去焦点验证
-        function checkUserName() {
-            if (userName.value.length<1) {
-                error1.style.color="red";
-                error1.innerText="用户名不能为空";
-            }else {
-                error1.innerText="";
-            }
-        }
-        //用户密码的失去焦点验证
-        function checkUserPwd() {
-            if (userPwd.value.length<6) {
-                error2.style.color="red";
-                error2.innerText="密码不能小于6位";
-            }else {
-                error2.innerText="";
-            }
-
-        }
-    </script>
-    <style>
-        body{
-            background-color:lightgoldenrodyellow;
-        }
-        div{
-            margin-left: 400px;
-            margin-top: 280px;
-        }
-        form{
-            font-size: 40px;
-        }
-        input{
-            font-size: 30px;
-        }
-        a{
-            font-size: 20px;
-        }
-    </style>
+    <script rel="stylesheet" type="text/javascript" src="../javascript/CheckData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
 </head>
 <body>
     <div>
-        <form action="userServlet" method="post" onsubmit="return checkDate()">
+        <form action="userServlet" method="post" onsubmit="return checkData()">
             <input type="hidden" name="method" value="login"/><%--登录识别--%>
             用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
-            <span id="error1" ></span><br/>
-            用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPwd" onblur="checkUserPwd()"/>
-            <span id="error2"></span><br/><br/>
+            <span id="userNameError" ></span><br/>
+            用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPassword" onblur="checkUserPassword()"/>
+            <span id="userPasswordError"></span><br/><br/>
             <input type="submit" value="登录"/>
             <input type="reset" value="重置"/>
         </form>

@@ -1,0 +1,16 @@
+body{
+    background-color:lightgoldenrodyellow;
+}
+div{
+    margin-left: 400px;
+    margin-top: 280px;
+}
+form{
+    font-size: 40px;
+}
+input{
+    font-size: 30px;
+}
+a{
+    font-size: 20px;
+}

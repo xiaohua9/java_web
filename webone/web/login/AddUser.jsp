@@ -52,6 +52,10 @@
         <span id="userNameError"></span><br/>
         用户密码：<input type="text" name="userPassword" id="userPassword" onblur="checkUserPassword()"/>
         <span id="userPasswordError"></span><br/>
+        用户性别：<input type="text" name="userGender" id="userGender" onblur="checkUserGender()"/><br/>
+        用户年龄：<input type="text" name="userAge" id="userAge" onblur="checkUserAge()"/><br/>
+        用户地址：<input type="text" name="userAddress" id="userAddress" onblur="checkUserAddress()"/><br/>
+        用户生日：<input type="text" name="userBirthday" id="userBirthday" onblur="checkUserBirthday()"/><br/>
         <input type="submit" value="提交"/>
         <input type="reset" value="重置"/>
     </form>
