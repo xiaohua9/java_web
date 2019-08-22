@@ -29,8 +29,9 @@
         //获取数据的页面显示信息
         PageBean pageBean = (PageBean)request.getAttribute("pageBean");
     %>
+    <h4>共<%=pageBean.getTotalPages() %>页,当前在第<%=pageBean.getCurrentPage() %>页</h4>
     <form action="userServlet" method="post"><%--使用一个表单实现分页选择的数据提交--%>
-        <b>共<%=pageBean.getTotalPages() %>页:</b>请选择页数
+        请选择页数:
         <select name="currentPage">
             <%
             for (int i=1;i<=pageBean.getTotalPages();i++){

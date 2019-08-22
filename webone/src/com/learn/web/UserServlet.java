@@ -112,12 +112,11 @@ public class UserServlet extends HttpServlet {
         UserDaoImpl dao=new UserDaoImpl();
         PageBean pageBean = new PageBean();//构造一个页面显示信息类对象
         pageBean.setRows(dao.selectCount());//获取总行数，并赋值
-        int currentPage =pageBean.getCurrentPage();
         String selectPage = req.getParameter("currentPage");
-        if (selectPage!=null){
-            currentPage = Integer.parseInt(req.getParameter("currentPage"));
+        if (selectPage!=null){//在登陆页面选择时，会进入这个分支
+            pageBean.setCurrentPage(Integer.parseInt(req.getParameter("currentPage")));
         }
-        List<User> users = dao.selectAll(currentPage,pageBean.getPageSize());//获取分页数据
+        List<User> users = dao.selectAll(pageBean.getCurrentPage(),pageBean.getPageSize());//获取分页数据
         req.setAttribute("list",users);//封装数据到请求中
         req.setAttribute("pageBean",pageBean);
         req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
