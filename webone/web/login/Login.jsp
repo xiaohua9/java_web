@@ -9,12 +9,12 @@
 <html>
 <head>
     <title>登陆</title>
-    <script rel="stylesheet" type="text/javascript" src="../javascript/CheckData.js"></script>
+    <script  type="text/javascript" src="../javascript/LoginCheckData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
 </head>
 <body>
     <div>
-        <form action="userServlet" method="post" onsubmit="return checkData()">
+        <form action="userServlet" method="post" onsubmit="return loginCheckData()">
             <input type="hidden" name="method" value="login"/><%--登录识别--%>
             用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
             <span id="userNameError" ></span><br/>

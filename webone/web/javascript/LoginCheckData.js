@@ -1,5 +1,5 @@
 /*表单数据验证*/
-function checkData() {
+function loginCheckData() {
     var flag=true;
     if (userName.value.length<1){
         flag=false;

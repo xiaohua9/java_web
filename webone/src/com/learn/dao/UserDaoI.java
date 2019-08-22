@@ -8,8 +8,4 @@ import java.util.List;
 public interface UserDaoI extends DaoI<User>{
     //用户添加登录的方法
     public User login(String userName,String userPassword);
-    //分页显示
-    public List<User> selectAll(int page,int pageSize);
-    //查询数据的数量
-    public int selectCount();
 }

@@ -1,11 +1,15 @@
 package com.learn.utils;
+
+import java.util.List;
+
 //用于分页显示的页面数据类
 public class PageBean {
-    //属性：每页显示的数量，总页数，当前页数，数据库的总数据量
+    //属性：每页显示的数量，总页数，当前页数，数据库的总数据量,当前页的数据
     private int pageSize=3;
     private int totalPages;
     private int currentPage=1;
     private int rows;
+    private List user;
 
     public int getPageSize() {
         return pageSize;
@@ -26,9 +30,15 @@ public class PageBean {
     public int getCurrentPage() {
         return currentPage;
     }
-
+//////对当前页数进行限制
     public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+        if (currentPage<1){
+            this.currentPage=1;
+        }else if (currentPage>this.getTotalPages()){
+            this.currentPage=this.getTotalPages();
+        }else {
+            this.currentPage = currentPage;
+        }
     }
 
     public int getRows() {
@@ -42,5 +52,13 @@ public class PageBean {
         }else {
             this.totalPages=this.rows/this.pageSize+1;
         }
+    }
+
+    public List getUser() {
+        return user;
+    }
+
+    public void setUser(List user) {
+        this.user = user;
     }
 }

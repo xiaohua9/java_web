@@ -9,41 +9,8 @@
 <html>
 <head>
     <title>更改数据</title>
-    <script>
-        //表单数据提交验证
-        function checkDate(){
-            var flag=true;
-            if (userName.value.length<1){
-                flag=false;
-                userNameError.style.color="red";
-                userNameError.innerText="用户名不能为空";
-            }
-            if (userPassword.value.length<6){
-                flag=false;
-                userPasswordError.style.color="red";
-                userPasswordError.innerText="密码不能小于6位";
-            }
-            return flag;
-        }
-        //用户名失去焦点验证
-        function checkUserName() {
-            if (userName.value.length<1){
-                userNameError.style.color="red";
-                userNameError.innerText="用户名不能为空";
-            } else {
-                userNameError.innerText="";
-            }
-        }
-        //用户密码失去焦点验证
-        function checkUserPassword() {
-            if (userPassword.value.length<6){
-                userPasswordError.style.color="red";
-                userPasswordError.innerText="密码不能小于6位";
-            } else {
-                userPasswordError.innerText="";
-            }
-        }
-    </script>
+    <script type="text/javascript" src="../javascript/InfoCheckData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
 </head>
 <body>
     <%//获取当前登录的用户对象
@@ -59,16 +26,20 @@
         }else {//在登录成功的情况下，才能得到登录的页面
     %>
     <h1>当前登陆用户：<%=currentUser.getUserName() %></h1>
-    <form action="userServlet" method="post" onsubmit="return checkDate()">
+    <form action="userServlet" method="post" onsubmit="return infoCheckData()">
         <input type="hidden" name="method" value="change"/><%--更新识别--%>
         用户名称：<%=request.getParameter("userName")%><br/>
         <input type="hidden" name="userName" id="userName" value="<%=request.getParameter("userName")%>"/>
         更新密码：<input type="text" name="userPassword" id="userPassword" value="<%=request.getParameter("userPassword")%>" onblur="checkUserPassword()"/>
         <span id="userPasswordError"></span><br/>
-        用户性别：<input type="text" name="userGender" id="userGender" value="<%=new String(request.getParameter("userGender").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserGender()"/><br/>
-        用户年龄：<input type="text" name="userAge" id="userAge" value="<%=request.getParameter("userAge")%>" onblur="checkUserAge()"/><br/>
-        用户地址：<input type="text" name="userAddress" id="userAddress" value="<%=new String(request.getParameter("userAddress").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserAddress()"/><br/>
-        用户生日：<input type="text" name="userBirthday" id="userBirthday" value="<%=request.getParameter("userBirthday")%>" onblur="checkUserBirthday()"/><br/>
+        用户性别：<input type="text" name="userGender" id="userGender" value="<%=new String(request.getParameter("userGender").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserGender()"/>
+        <span id="userGenderError"></span><br/>
+        用户年龄：<input type="text" name="userAge" id="userAge" value="<%=request.getParameter("userAge")%>" onblur="checkUserAge()"/>
+        <span id="userAgeError"></span><br/>
+        用户地址：<input type="text" name="userAddress" id="userAddress" value="<%=new String(request.getParameter("userAddress").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserAddress()"/>
+        <span id="userAddressError"></span><br/>
+        用户生日：<input type="text" name="userBirthday" id="userBirthday" value="<%=request.getParameter("userBirthday")%>" onblur="checkUserBirthday()"/>
+        <span id="userBirthdayError"></span><br/>
         <input type="submit" value="确定"/>
     </form>
     <%

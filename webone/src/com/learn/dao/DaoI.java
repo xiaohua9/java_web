@@ -1,5 +1,4 @@
 package com.learn.dao;
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.util.List;
@@ -16,6 +15,14 @@ public interface DaoI<T> {
     public int update(T t);
     //查询一条数据
     public T select(Object parameter);
-    //查询所有数据
-    public List<T> selectAll();
+    //分页查询所有数据
+    public List<T> selectAll(int page, int pageSize);
+    //查询所有数据的数量
+    public int selectCount();
+    //按条件分页查询所有数据
+    public List<T> selectAll(int page, int pageSize, Object parameter);
+    //按条件查询数据的数量
+    public int selectCount(Object parameter);
+    //获取某个字段的集合
+    public List<Object> selectColumn(Object parameter);
 }

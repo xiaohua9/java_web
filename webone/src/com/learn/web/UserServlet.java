@@ -1,9 +1,8 @@
 package com.learn.web;
-
-import com.learn.dao.impl.UserDaoImpl;
 import com.learn.entity.User;
+import com.learn.service.impl.UserServiceImpl;
+import com.learn.utils.EmptyUtils;
 import com.learn.utils.PageBean;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "UserServlet",urlPatterns = "/login/userServlet")
 public class UserServlet extends HttpServlet {
+    UserServiceImpl userServiceImpl=new UserServiceImpl();//获取服务层对象
     //请求的总控制中心
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将前端的请求数据解码
@@ -40,8 +40,7 @@ public class UserServlet extends HttpServlet {
     protected void doLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");//获取表单元素值
         String userPassword = req.getParameter("userPwd");
-        UserDaoImpl dao=new UserDaoImpl();//构建一个用户表的数据访问对象
-        User user=dao.login(userName,userPassword);
+        User user=this.userServiceImpl.login(userName,userPassword);//调用服务层登录
         if (user!=null){
             HttpSession session = req.getSession();//获取会话
             session.setAttribute("currentUser",user);//将当前登录的用户封装到会话中，用于后续网页的展示与判断（多页面展示）
@@ -62,10 +61,7 @@ public class UserServlet extends HttpServlet {
         String userBirthday = req.getParameter("userBirthday");
         //将前端数据构成一个用户对象
         User user=new User(userName,userPassword,userGender,Integer.parseInt(userAge),userAddress,userBirthday);
-        //构建一个用户的数据访问对象
-        UserDaoImpl dao=new UserDaoImpl();
-        //将数据加入数据库，flag接收影响的行数
-        int flag=dao.insert(user);
+        int flag = this.userServiceImpl.insert(user);//将数据加入数据库，flag接收影响的行数
         if (flag>0){
             //插入成功，直接登录
             HttpSession session = req.getSession();//获取会话
@@ -84,11 +80,9 @@ public class UserServlet extends HttpServlet {
         if (req.getSession().getAttribute("currentUser")!=null) {
             String userName = req.getParameter("userName");//获取超链接提交的需要删除的用户名
             userName=new String(userName.getBytes("iso-8859-1"),"UTF-8");
-            UserDaoImpl dao=new UserDaoImpl();
-            User user=new User(userName);
-            dao.delete(user);//删除
-            //然后将删除后的数据返回
-            //因为删除是针对确定已经有的数据进行，所以无需判断，直接转向查所有组件
+            User user=new User(userName);//构造临时用户
+            this.userServiceImpl.delete(user);//删除
+            //重定向查所有组件
             resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {//如果有人试图想不登录删除，我就让他去登录
             resp.sendRedirect("/login/Login.jsp");
@@ -96,9 +90,9 @@ public class UserServlet extends HttpServlet {
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user=new User(req.getParameter("userName"),req.getParameter("userPassword"),req.getParameter("userGender"),Integer.parseInt(req.getParameter("userAge")),req.getParameter("userAddress"),req.getParameter("userBirthday"));//以提交信息构造对象
-        UserDaoImpl dao=new UserDaoImpl();
-        int update = dao.update(user);
+        //以提交信息构造对象
+        User user=new User(req.getParameter("userName"),req.getParameter("userPassword"),req.getParameter("userGender"),Integer.parseInt(req.getParameter("userAge")),req.getParameter("userAddress"),req.getParameter("userBirthday"));
+        int update = this.userServiceImpl.update(user);//修改
         if (update>0){
             resp.sendRedirect("/login/userServlet");//执行查找所有的组件
         }else {
@@ -109,16 +103,20 @@ public class UserServlet extends HttpServlet {
     }
     //查找服务中心
     protected void doFindAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDaoImpl dao=new UserDaoImpl();
         PageBean pageBean = new PageBean();//构造一个页面显示信息类对象
-        pageBean.setRows(dao.selectCount());//获取总行数，并赋值
-        String selectPage = req.getParameter("currentPage");
-        if (selectPage!=null){//在登陆页面选择时，会进入这个分支
-            pageBean.setCurrentPage(Integer.parseInt(req.getParameter("currentPage")));
+        String currentUserAddress = req.getParameter("userAddress");//获取当前用户地址条件
+        pageBean.setRows(this.userServiceImpl.selectCount(currentUserAddress));//获取总行数，并赋值,必须要放在这个位置，至少不能放在当前页数设置后面
+        String page = req.getParameter("page");//获取前端提交过来的页数
+        if (!EmptyUtils.isEmpty(page)){//在不为空的情况下进行当前页数设置
+            int i = Integer.parseInt(page);
+            pageBean.setCurrentPage(i);
         }
-        List<User> users = dao.selectAll(pageBean.getCurrentPage(),pageBean.getPageSize());//获取分页数据
-        req.setAttribute("list",users);//封装数据到请求中
-        req.setAttribute("pageBean",pageBean);
+        List<User> users = this.userServiceImpl.selectAll(pageBean.getCurrentPage(),pageBean.getPageSize(),currentUserAddress);//获取分页数据
+        pageBean.setUser(users);//将查到的数据赋值进页面对象
+        List<Object> userAddress = this.userServiceImpl.selectColumn("userAddress");//获取地址,准确地写数据库的字段名
+        req.setAttribute("userAddress",userAddress);//包装地址数据,用于条件选择
+        req.setAttribute("pageBean",pageBean);//包装页面数据和查询结果
+        req.setAttribute("currentUserAddress",currentUserAddress);//将前端提交的条件返回用于回显
         req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
     }
 }
