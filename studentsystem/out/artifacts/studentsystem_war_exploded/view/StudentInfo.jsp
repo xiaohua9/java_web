@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: lightyellow">
 <%--//空的话 ，去访问查全部组件--%>
 <c:if test="${ empty requestScope.pageBean}">
     <script>location.href="/view/StudentServlet"</script>

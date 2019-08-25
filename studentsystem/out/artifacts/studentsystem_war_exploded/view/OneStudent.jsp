@@ -10,10 +10,16 @@
 <html>
 <head>
     <title>个人信息</title>
+    <style>
+        #myTable{
+            width: 1000px;
+            font-size: 30px;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: lightyellow">
 <h1 align="center">学生信息详情</h1>
-    <table border="1px" align="center">
+    <table border="1px" align="center" id="myTable">
         <tr>
             <td>编号</td><td>${param.studentNo}</td>
         </tr>
