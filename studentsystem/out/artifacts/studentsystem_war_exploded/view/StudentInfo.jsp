@@ -28,6 +28,10 @@
             position: absolute;
             top: 125px;
             left: 300px;
+            text-decoration: none;
+        }
+        #addStudent:hover{
+            font-size: 50px;
         }
     </style>
 </head>
