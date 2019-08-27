@@ -2,13 +2,14 @@ package com.learn.entity;
 
 //用户实体类
 public class User {
-    //属性：用户名，密码,性别，年龄，地址，生日
+    //属性：用户名，密码,性别，年龄，地址，生日,图片名字
     private String userName;
     private String userPassword;
     private String userGender;
     private int userAge;
     private String userAddress;
     private String userBirthday;
+    private String pictureName;
     //构造方法
     public User() {
     }
@@ -17,13 +18,14 @@ public class User {
         this.userName = userName;
     }
 
-    public User(String userName, String userPassword, String userGender, int userAge, String userAddress, String userBirthday) {
+    public User(String userName, String userPassword, String userGender, int userAge, String userAddress, String userBirthday, String pictureName) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userGender = userGender;
         this.userAge = userAge;
         this.userAddress = userAddress;
         this.userBirthday = userBirthday;
+        this.pictureName = pictureName;
     }
 
     //set/get方法
@@ -76,6 +78,14 @@ public class User {
         this.userBirthday = userBirthday;
     }
 
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        this.pictureName = pictureName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -85,6 +95,7 @@ public class User {
                 ", userAge=" + userAge +
                 ", userAddress='" + userAddress + '\'' +
                 ", userBirthday='" + userBirthday + '\'' +
+                ", pictureName='" + pictureName + '\'' +
                 '}';
     }
 }

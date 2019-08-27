@@ -11,6 +11,12 @@
     <title>登陆</title>
     <script  type="text/javascript" src="../javascript/LoginCheckData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
+    <script>
+        function getVerifyCode() {
+            var date=new Date();
+            verifyCodeImg.src="VerifyCodeServlet?a="+date.getTime();/*加上时间是为了区分，使缓存更新*/
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -19,7 +25,9 @@
             用户名称：<input type="text" name="userName" placeholder="a" id="userName" onblur="checkUserName()"/>
             <span id="userNameError" ></span><br/>
             用户密码：<input type="password" name="userPwd" placeholder="aaaaaa" id="userPassword" onblur="checkUserPassword()"/>
-            <span id="userPasswordError"></span><br/><br/>
+            <span id="userPasswordError"></span><br/>
+            验证码值：<input type="text" name="verifyCode"/><img src="VerifyCodeServlet" id="verifyCodeImg"><a href="javascript:getVerifyCode()">看不清</a>
+            <br/><br/>
             <input type="submit" value="登录"/>
             <input type="reset" value="重置"/>
         </form>

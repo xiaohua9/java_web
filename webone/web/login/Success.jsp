@@ -55,9 +55,9 @@
         <a  href="javascript:void(0)"  onclick="go(${requestScope.pageBean.totalPages})">尾页</a>
         <input type="text" id="goto" value="${requestScope.pageBean.currentPage}" style="width: 70px"/><input type="button" value="跳转" onclick="goPage()"/>
         <br/><br/>
-        <table border="2px" width="800px">
+        <table border="2px" width="900px">
             <tr>
-                <td>用户名称</td><td>用户密码</td><td>用户性别</td><td>用户年龄</td><td>用户地址</td><td>用户生日</td><td>操作</td>
+                <td>用户名称</td><td>用户密码</td><td>用户性别</td><td>用户年龄</td><td>用户地址</td><td>用户生日</td><td>头像</td><td>操作</td>
             </tr>
             <c:forEach items="${requestScope.pageBean.user}" var="user" varStatus="stat">
                 <c:if test="${stat.index%2==0}">
@@ -68,8 +68,9 @@
                         <td>${user.userAge}</td>
                         <td>${user.userAddress}</td>
                         <td>${user.userBirthday}</td>
+                        <td><img src="/upload/${user.pictureName}" width="50px" height="50px" /><a href="DownloadServlet?fileName=${user.pictureName}">下载</a></td>
                         <td><a href="userServlet?method=delete&userName=${user.userName}">删除</a>
-                            <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}" >修改</a></td>
+                            <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}&pictureName=${user.pictureName}" >修改</a></td>
                     </tr>
                 </c:if>
                 <c:if test="${stat.index%2!=0}">
@@ -80,8 +81,9 @@
                         <td>${user.userAge}</td>
                         <td>${user.userAddress}</td>
                         <td>${user.userBirthday}</td>
+                        <td><img src="/upload/${user.pictureName}" width="50px" height="50px" id="myImg2" /><a href="DownloadServlet?fileName=${user.pictureName}">下载</a></td>
                         <td><a href="userServlet?method=delete&userName=${user.userName}">删除</a>
-                            <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}" >修改</a></td>
+                            <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}&pictureName=${user.pictureName}" >修改</a></td>
                     </tr>
                 </c:if>
             </c:forEach>

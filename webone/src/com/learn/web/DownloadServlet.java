@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-
-@WebServlet(name = "DownloadServlet" ,urlPatterns = "/file/DownloadServlet")
+/*提交过来一个文件名，就可以完成下载了，注意修改组件的监听位置*/
+@WebServlet(name = "DownloadServlet" ,urlPatterns = "/login/DownloadServlet")
 public class DownloadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");

@@ -2,15 +2,23 @@ package com.learn.web;
 import com.learn.entity.User;
 import com.learn.service.impl.UserServiceImpl;
 import com.learn.utils.EmptyUtils;
+import com.learn.utils.MyMD5;
 import com.learn.utils.PageBean;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "UserServlet",urlPatterns = "/login/userServlet")
 public class UserServlet extends HttpServlet {
@@ -19,7 +27,30 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将前端的请求数据解码
         request.setCharacterEncoding("utf-8");
-        String method = request.getParameter("method");//获取识别码
+        String method=null;
+        if (ServletFileUpload.isMultipartContent(request)){//多媒体提交
+            ServletFileUpload fileUpload=new ServletFileUpload(new DiskFileItemFactory());//文件上传对象
+            List<FileItem> parseRequest=null;
+            try {
+                parseRequest = fileUpload.parseRequest(request);//解析请求
+                request.setAttribute("parseRequest",parseRequest);//由于请求多媒体只能被解析一次，故以此传递
+                for (FileItem fileItem : parseRequest) {
+                    if (fileItem.isFormField()) {//普通表单项
+                        String fieldName = fileItem.getFieldName();//表单名
+                        String stringValue = fileItem.getString("utf-8");//表单值
+                        //针对各个属性依次赋值
+                        if ("method".equals(fieldName)) {
+                            method=stringValue;//获取识别码
+                            break;
+                        }
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else {//非多媒体提交
+            method = request.getParameter("method");//获取识别码
+        }
         if ("login".equals(method)){
             this.doLogin(request,response);
         }else if ("add".equals(method)){
@@ -38,29 +69,69 @@ public class UserServlet extends HttpServlet {
     }
     //登录服务中心
     protected void doLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = req.getParameter("userName");//获取表单元素值
-        String userPassword = req.getParameter("userPwd");
-        User user=this.userServiceImpl.login(userName,userPassword);//调用服务层登录
-        if (user!=null){
-            HttpSession session = req.getSession();//获取会话
-            session.setAttribute("currentUser",user);//将当前登录的用户封装到会话中，用于后续网页的展示与判断（多页面展示）
-            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
-        }else {//用户名和密码在数据库中不存在
+        String verifyCode=req.getParameter("verifyCode");//获取提交的验证码
+        String text = (String) req.getSession().getAttribute("text");//获取验证码值
+        if (!text.equalsIgnoreCase(verifyCode)){//如果验证码值不等于验证码值就登录失败（忽略大小写）
             resp.setContentType("text/html;charset=UTF-8");
-            resp.getWriter().print("<script>alert('用户名或密码错误');location.href='/login/Login.jsp'</script>");
+            resp.getWriter().print("<script>alert('验证码错误');location.href='/login/Login.jsp'</script>");
+        }else {
+            String userName = req.getParameter("userName");//获取表单元素值
+            String userPassword = MyMD5.getPassword(req.getParameter("userPwd"));
+            User user = this.userServiceImpl.login(userName, userPassword);//调用服务层登录
+            if (user != null) {
+                HttpSession session = req.getSession();//获取会话
+                session.setAttribute("currentUser", user);//将当前登录的用户封装到会话中，用于后续网页的展示与判断（多页面展示）
+                resp.sendRedirect("/login/userServlet");//执行查找所有的组件
+            } else {//用户名和密码在数据库中不存在
+                resp.setContentType("text/html;charset=UTF-8");
+                resp.getWriter().print("<script>alert('用户名或密码错误');location.href='/login/Login.jsp'</script>");
+            }
         }
     }
     //增加服务中心
     protected void doAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //获取前端提交的信息
-        String userName = req.getParameter("userName");
-        String userPassword = req.getParameter("userPassword");
-        String userGender = req.getParameter("userGender");
-        String userAge = req.getParameter("userAge");
-        String userAddress = req.getParameter("userAddress");
-        String userBirthday = req.getParameter("userBirthday");
-        //将前端数据构成一个用户对象
-        User user=new User(userName,userPassword,userGender,Integer.parseInt(userAge),userAddress,userBirthday);
+        List<FileItem> parseRequest=null;
+        String upload = req.getServletContext().getRealPath("upload");//当前项目下的upload 绝对路径
+        User user=new User();//先创建一个没有赋值的用户
+        try {
+            parseRequest = ( List<FileItem>)req.getAttribute("parseRequest");//解析请求
+            for (FileItem fileItem:parseRequest){
+                if (fileItem.isFormField()){//普通表单项
+                    String fieldName = fileItem.getFieldName();//表单名
+                    String stringValue = fileItem.getString("utf-8");//表单值
+                    //针对各个属性依次赋值
+                    if ("userName".equals(fieldName)){
+                        user.setUserName(stringValue);
+                    }
+                    if ("userPassword".equals(fieldName)){
+                        user.setUserPassword(MyMD5.getPassword(stringValue));//加密
+                    }
+                    if ("userGender".equals(fieldName)){
+                        user.setUserGender(stringValue);
+                    }
+                    if ("userAge".equals(fieldName)){
+                        user.setUserAge(Integer.parseInt(stringValue));
+                    }
+                    if ("userAddress".equals(fieldName)){
+                        user.setUserAddress(stringValue);
+                    }
+                    if ("userBirthday".equals(fieldName)){
+                        user.setUserBirthday(stringValue);
+                    }
+                }else {//文件
+                    String newFileName = getFileName(fileItem.getName());
+                    user.setPictureName(newFileName);//给文件名属性赋值
+                    File file=new File(upload+"/"+newFileName);
+                    try {
+                        fileItem.write(file);//将数据写入文件
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         int flag = this.userServiceImpl.insert(user);//将数据加入数据库，flag接收影响的行数
         if (flag>0){
             //插入成功，直接登录
@@ -90,8 +161,53 @@ public class UserServlet extends HttpServlet {
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //以提交信息构造对象
-        User user=new User(req.getParameter("userName"),req.getParameter("userPassword"),req.getParameter("userGender"),Integer.parseInt(req.getParameter("userAge")),req.getParameter("userAddress"),req.getParameter("userBirthday"));
+        ServletFileUpload fileUpload=new ServletFileUpload(new DiskFileItemFactory());//文件上传对象
+        List<FileItem> parseRequest=null;
+        String upload = req.getServletContext().getRealPath("upload");//当前项目下的upload 绝对路径
+        User user=new User();//先创建一个没有赋值的用户
+        try {
+            parseRequest = ( List<FileItem>)req.getAttribute("parseRequest");//解析请求
+            for (FileItem fileItem:parseRequest){
+                if (fileItem.isFormField()){//普通表单项
+                    String fieldName = fileItem.getFieldName();//表单名
+                    String stringValue = fileItem.getString("utf-8");//表单值
+                    //针对各个属性依次赋值
+                    if ("userName".equals(fieldName)){
+                        user.setUserName(stringValue);
+                    }
+                    if ("userPassword".equals(fieldName)){
+                        user.setUserPassword(MyMD5.getPassword(stringValue));//加密
+                    }
+                    if ("userGender".equals(fieldName)){
+                        user.setUserGender(stringValue);
+                    }
+                    if ("userAge".equals(fieldName)){
+                        user.setUserAge(Integer.parseInt(stringValue));
+                    }
+                    if ("userAddress".equals(fieldName)){
+                        user.setUserAddress(stringValue);
+                    }
+                    if ("userBirthday".equals(fieldName)){
+                        user.setUserBirthday(stringValue);
+                    }
+                }else {//文件
+                    String oldFileName=fileItem.getName();
+                    if (!EmptyUtils.isEmpty(oldFileName)){
+                        //说明用户进行了头像更新
+                        String newFileName = getFileName(fileItem.getName());
+                        user.setPictureName(newFileName);//给文件名属性赋值
+                        File file=new File(upload+"/"+newFileName);
+                        try {
+                            fileItem.write(file);//将数据写入文件
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         int update = this.userServiceImpl.update(user);//修改
         if (update>0){
             resp.sendRedirect("/login/userServlet");//执行查找所有的组件
@@ -118,5 +234,11 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("pageBean",pageBean);//包装页面数据和查询结果
         req.setAttribute("currentUserAddress",currentUserAddress);//将前端提交的条件返回用于回显
         req.getRequestDispatcher("/login/Success.jsp").forward(req,resp);
+    }
+    //构建新文件名
+    public String getFileName(String fileName){
+        String substring = fileName.substring(fileName.lastIndexOf("."));//得到扩展名
+        String newFileName = UUID.randomUUID().toString() + substring;
+        return newFileName;
     }
 }

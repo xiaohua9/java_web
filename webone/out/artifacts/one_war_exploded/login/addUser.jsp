@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
 </head>
 <body>
-    <form action="userServlet" method="post" onsubmit="return infoCheckData()">
+    <form action="userServlet" method="post" enctype="multipart/form-data" onsubmit="return infoCheckData()">
         <input type="hidden" name="method" value="add"/><%--添加识别--%>
         用户名称：<input type="text" name="userName" id="userName" onblur="checkUserName()"/>
         <span id="userNameError"></span><br/>
@@ -27,6 +27,8 @@
         <span id="userAddressError"></span><br/>
         用户生日：<input type="text" name="userBirthday" id="userBirthday" onblur="checkUserBirthday()"/>
         <span id="userBirthdayError"></span><br/>
+        头像文件：<input type="file" name="pictureName" id="pictureName" onblur="checkPictureName()"/>
+        <span id="pictureNameError"></span><br/>
         <input type="submit" value="提交"/>
         <input type="reset" value="重置"/>
     </form>

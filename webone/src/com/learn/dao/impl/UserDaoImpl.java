@@ -2,6 +2,7 @@ package com.learn.dao.impl;
 
 import com.learn.dao.UserDaoI;
 import com.learn.entity.User;
+import com.learn.utils.EmptyUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -29,13 +30,13 @@ public class UserDaoImpl implements UserDaoI {
     @Override
     public int insert(User user) {
         //构造sql字符串
-        String sql="insert into user values(?,?,?,?,?,?)";
+        String sql="insert into user values(?,?,?,?,?,?,?)";
         //构造sql执行对象
         QueryRunner runner=new QueryRunner(dataSource);
         //调用工具执行sql
         int flag=0;//sql影响的行数
         try {
-            flag=runner.update(sql,user.getUserName(),user.getUserPassword(),user.getUserGender(),user.getUserAge(),user.getUserAddress(),user.getUserBirthday());
+            flag=runner.update(sql,user.getUserName(),user.getUserPassword(),user.getUserGender(),user.getUserAge(),user.getUserAddress(),user.getUserBirthday(),user.getPictureName());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,18 +61,35 @@ public class UserDaoImpl implements UserDaoI {
 
     @Override
     public int update(User user) {
-        //构造sql字符串
-        String sql="update user set userPassword=?,userGender=?,userAge=?,userAddress=?,userBirthday=? where userName=?";
-        //构造sql执行对象
-        QueryRunner runner=new QueryRunner(dataSource);
-        //调用工具执行sql
-        int flag=0;//sql影响的行数
-        try {
-            flag=runner.update(sql,user.getUserPassword(),user.getUserGender(),user.getUserAge(),user.getUserAddress(),user.getUserBirthday(),user.getUserName());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (EmptyUtils.isEmpty(user.getPictureName())){
+            //说明不需要更新头像
+            //构造sql字符串
+            String sql = "update user set userPassword=?,userGender=?,userAge=?,userAddress=?,userBirthday=? where userName=?";
+            //构造sql执行对象
+            QueryRunner runner = new QueryRunner(dataSource);
+            //调用工具执行sql
+            int flag = 0;//sql影响的行数
+            try {
+                flag = runner.update(sql, user.getUserPassword(), user.getUserGender(), user.getUserAge(), user.getUserAddress(), user.getUserBirthday(), user.getUserName());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;//返回sql影响的行数
+        }else {
+            //构造sql字符串
+            String sql = "update user set userPassword=?,userGender=?,userAge=?,userAddress=?,userBirthday=?,pictureName=? where userName=?";
+
+            //构造sql执行对象
+            QueryRunner runner = new QueryRunner(dataSource);
+            //调用工具执行sql
+            int flag = 0;//sql影响的行数
+            try {
+                flag = runner.update(sql, user.getUserPassword(), user.getUserGender(), user.getUserAge(), user.getUserAddress(), user.getUserBirthday(), user.getPictureName(), user.getUserName());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;//返回sql影响的行数
         }
-        return flag;//返回sql影响的行数
     }
 
     @Override

@@ -26,11 +26,11 @@
         }else {//在登录成功的情况下，才能得到登录的页面
     %>
     <h1>当前登陆用户：<%=currentUser.getUserName() %></h1>
-    <form action="userServlet" method="post" onsubmit="return infoCheckData()">
+    <form action="userServlet" method="post" enctype="multipart/form-data" onsubmit="return infoCheckData()">
         <input type="hidden" name="method" value="change"/><%--更新识别--%>
         用户名称：<%=request.getParameter("userName")%><br/>
         <input type="hidden" name="userName" id="userName" value="<%=request.getParameter("userName")%>"/>
-        更新密码：<input type="text" name="userPassword" id="userPassword" value="<%=request.getParameter("userPassword")%>" onblur="checkUserPassword()"/>
+        更新密码：<input type="text" name="userPassword" id="userPassword"  onblur="checkUserPassword()"/>
         <span id="userPasswordError"></span><br/>
         用户性别：<input type="text" name="userGender" id="userGender" value="<%=new String(request.getParameter("userGender").getBytes("iso-8859-1"),"utf-8")%>" onblur="checkUserGender()"/>
         <span id="userGenderError"></span><br/>
@@ -40,7 +40,10 @@
         <span id="userAddressError"></span><br/>
         用户生日：<input type="text" name="userBirthday" id="userBirthday" value="<%=request.getParameter("userBirthday")%>" onblur="checkUserBirthday()"/>
         <span id="userBirthdayError"></span><br/>
-        <input type="submit" value="确定"/>
+        头像文件：<img src="/upload/<%=request.getParameter("pictureName") %>" width="100px" height="100px"/><br/>
+        更新请上传：<input type="file" name="pictureName" id="pictureName"  >
+        <span id="pictureNameError"></span><br/>
+        <input type="submit" value="提交"/>
     </form>
     <%
         }
