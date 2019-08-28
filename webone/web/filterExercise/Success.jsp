@@ -11,7 +11,17 @@
     <title>Title</title>
 </head>
 <body>
-在线人数：${num}
- 姓名：${param.name}
+在线人数：${num}<br/>
+ 姓名：${param.name}<br/>
+<%
+    Integer hitsCount=(Integer) application.getAttribute("hitsCount");
+    if (hitsCount==null){
+        hitsCount=1;
+    }else {
+        hitsCount++;
+    }
+    application.setAttribute("hitsCount",hitsCount);
+%>
+当前页面的点击数:${applicationScope.hitsCount}
 </body>
 </html>
