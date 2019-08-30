@@ -6,25 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d6d933e-a473-48cb-93e8-20f58315d2ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../testtwo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../testtwo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/filter/MyFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/filter/MyFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/filter/PermissionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/filter/PermissionFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/web/UserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/classes/com/learn/web/UserServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/one_war_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/one_war_exploded/login/Success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/one_war_exploded/login/Success.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/webone/com/learn/filter/MyFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/webone/com/learn/filter/MyFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/webone/com/learn/filter/PermissionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/webone/com/learn/filter/PermissionFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/webone/com/learn/web/UserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/webone/com/learn/web/UserServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/filter/MyFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/filter/MyFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/filter/PermissionFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/filter/PermissionFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/learn/web/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/learn/web/UserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/login/AddUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login/AddUser.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/login/Success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login/Success.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/webone.iml" afterDir="false" />
-    </list>
+    <list default="true" id="7d6d933e-a473-48cb-93e8-20f58315d2ae" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +27,7 @@
     <session id="-1462889465">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="26" />
+          <entry key="project.closed" value="27" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.12" value="1" />
@@ -97,7 +79,7 @@
           <entry key="dummy" value="16" />
           <entry key="java" value="9776" />
           <entry key="js" value="457" />
-          <entry key="jsp" value="9020" />
+          <entry key="jsp" value="9046" />
           <entry key="xml" value="353" />
         </counts>
       </usages-collector>
@@ -105,7 +87,7 @@
         <counts>
           <entry key="CSS" value="1" />
           <entry key="JAVA" value="9776" />
-          <entry key="JSP" value="9019" />
+          <entry key="JSP" value="9045" />
           <entry key="JavaScript" value="457" />
           <entry key="PLAIN_TEXT" value="16" />
           <entry key="XML" value="353" />
@@ -169,11 +151,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/login/AddUser.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+            <state relative-caret-position="400">
+              <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -192,11 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/login/AjaxRequest.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="20" column="45" lean-forward="true" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
+            <state relative-caret-position="175">
+              <caret line="7" column="65" lean-forward="true" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -304,7 +286,7 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="149" />
     <option name="y" value="44" />
     <option name="width" value="980" />
@@ -373,8 +355,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567155546947" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567155822514" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testtwo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -550,12 +532,12 @@
       <workItem from="1567037425341" duration="1240000" />
       <workItem from="1567063610325" duration="619000" />
       <workItem from="1567067211380" duration="4889000" />
-      <workItem from="1567130462797" duration="16364000" />
+      <workItem from="1567130462797" duration="16867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276445000" />
+    <option name="totallyTimeSpent" value="276948000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -846,13 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/login/AjaxRequest.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="20" column="45" lean-forward="true" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/learn/web/DownloadServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="533">
@@ -899,8 +874,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/login/AddUser.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        <state relative-caret-position="400">
+          <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login/AjaxRequest.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="65" lean-forward="true" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
         </state>
       </provider>
     </entry>

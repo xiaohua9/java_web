@@ -12,6 +12,7 @@
     <title>Title</title>
     <head>
         <title>论坛中心</title>
+        <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
         <script type="text/javascript">
             /*首页，尾页，上一页，下一页*/
             function go(p) {
@@ -23,6 +24,10 @@
                 page.value=goto.value;
                 queryForm.submit();
             }
+
+            $(function () {/*将插入的数据以奇数行显示浅绿色*/
+                $(".trColor:odd").css({"background-color":"lightgreen"});
+            })
         </script>
         <style>
             #addStudent{
@@ -63,7 +68,7 @@
         <td>编号</td><td>标题</td><td>发帖时间</td><td>点击数</td><td>板块名称</td><td>删除</td><td>修改</td><td>详情</td>
     </tr>
     <c:forEach items="${requestScope.pageBean.postInfo}" var="postInfo" >
-            <tr style="background-color: lightgreen">
+            <tr class="trColor">
                 <td>${postInfo.id}</td>
                 <td>${postInfo.title}</td>
                 <td>${postInfo.postTime}</td>
