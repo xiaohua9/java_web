@@ -11,6 +11,23 @@
 <head>
     <title>登录成功</title>
     <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
+    <script type="text/javascript" src="/javascript/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(function () {          /*ajax删除请求实现页面的局部刷新*/
+            $(".deleteThis").click(function () {
+                var obj=$(this);
+                var name=obj.prop("name");
+                $.post("userServlet",{"method":"delete","userName":name},function (data) {
+                    if (parseInt(data) > 0) {
+                        obj.parents("tr").remove();
+                        alert("删除成功")
+                    }else {
+                        alert("删除失败")
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         /*首页，尾页，上一页，下一页*/
         function go(p) {
@@ -69,7 +86,7 @@
                         <td>${user.userAddress}</td>
                         <td>${user.userBirthday}</td>
                         <td><img src="/upload/${user.pictureName}" width="50px" height="50px" /><a href="DownloadServlet?fileName=${user.pictureName}">下载</a></td>
-                        <td><a href="userServlet?method=delete&userName=${user.userName}">删除</a>
+                        <td><a href="javascript:void(0)" class="deleteThis" name="${user.userName}" >删除</a>
                             <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}&pictureName=${user.pictureName}" >修改</a></td>
                     </tr>
                 </c:if>
@@ -82,7 +99,7 @@
                         <td>${user.userAddress}</td>
                         <td>${user.userBirthday}</td>
                         <td><img src="/upload/${user.pictureName}" width="50px" height="50px" id="myImg2" /><a href="DownloadServlet?fileName=${user.pictureName}">下载</a></td>
-                        <td><a href="userServlet?method=delete&userName=${user.userName}">删除</a>
+                        <td><a href="javascript:void(0)" class="deleteThis" name="${user.userName}" >删除</a>
                             <a href="/login/UpdateUser.jsp?userName=${user.userName}&userPassword=${user.userPassword}&userGender=${user.userGender}&userAge=${user.userAge}&userAddress=${user.userAddress}&userBirthday=${user.userBirthday}&pictureName=${user.pictureName}" >修改</a></td>
                     </tr>
                 </c:if>

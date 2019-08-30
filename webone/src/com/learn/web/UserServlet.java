@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
@@ -152,9 +153,9 @@ public class UserServlet extends HttpServlet {
             String userName = req.getParameter("userName");//获取超链接提交的需要删除的用户名
             userName=new String(userName.getBytes("iso-8859-1"),"UTF-8");
             User user=new User(userName);//构造临时用户
-            this.userServiceImpl.delete(user);//删除
-            //重定向查所有组件
-            resp.sendRedirect("/login/userServlet");//执行查找所有的组件
+            int i=this.userServiceImpl.delete(user);//删除
+            PrintWriter writer = resp.getWriter();
+            writer.print(i);//将删除影响的行数返回给Ajax请求
         }else {//如果有人试图想不登录删除，我就让他去登录
             resp.sendRedirect("/login/Login.jsp");
         }

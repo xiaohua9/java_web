@@ -11,6 +11,19 @@
     <title>注册</title>
     <script type="text/javascript" src="../javascript/InfoCheckData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/LoginCss.css"  />
+    <script type="text/javascript" src="/javascript/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#userName").blur(function () {
+                var userName = $(this).val();
+                if (userName.length>0){/*这里仅仅在有用户名的时候才发送Ajax请求，没有的时候，留给之前做的js验证*/
+                    $.post("SelectOneServlet",{"userName":userName},function (data) {
+                        $("#userNameError").text(data);/*将请求返回的数据进行动态显示*/
+                    });
+                }
+            });
+        })
+    </script>
 </head>
 <body>
     <form action="userServlet" method="post" enctype="multipart/form-data" onsubmit="return infoCheckData()">

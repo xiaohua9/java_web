@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 /*字符编码转换过滤器*/
-@WebFilter(filterName = "MyFilter",urlPatterns = "/filterExercise/*")
+/*@WebFilter(filterName = "MyFilter",urlPatterns = "/filterExercise/*")*/
 public class MyFilter implements Filter {
     public void destroy() {
     }

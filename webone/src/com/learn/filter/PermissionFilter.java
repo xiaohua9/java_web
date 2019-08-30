@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 /*权限控制过滤器*/
-@WebFilter(filterName = "PermissionFilter",urlPatterns = "/filterExercise/Success.jsp")
+/*@WebFilter(filterName = "PermissionFilter",urlPatterns = "/filterExercise/Success.jsp")*/
 public class PermissionFilter implements Filter {
     public void destroy() {
     }
