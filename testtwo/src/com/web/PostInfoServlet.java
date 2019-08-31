@@ -125,9 +125,8 @@ public class PostInfoServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");//获取超链接提交的需要删除的学号
         PostInfo postInfo = new PostInfo(Integer.parseInt(id));//构造临时贴
-        this.postInfoService.delete(postInfo);//删除
-        resp.setContentType("text/html;charset=UTF-8");//设置回应数据的编码
-        resp.getWriter().print("<script>alert('删除成功');location.href='/view/PostInfoServlet'</script>");
+        int delete = this.postInfoService.delete(postInfo);//删除
+        resp.getWriter().print(delete);//将影响的行数回应给ajax请求
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

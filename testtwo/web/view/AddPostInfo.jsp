@@ -10,6 +10,15 @@
 <html>
 <head>
     <title>发帖</title>
+    <script type="text/javascript" src="/js/jquery-3.2.1.js" ></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#picFile").change(function () {
+                $(this).val();
+                //在文件表单值改变的时候处理
+            });
+        });
+    </script>
 </head>
 <body style="background-color: lightyellow">
 <h1>论坛发帖</h1>
@@ -37,7 +46,7 @@
             <td>发布时间</td><td><input type="text" name="postTime"/></td>
         </tr>
         <tr>
-            <td>上传图片</td><td><input type="file" name="pic" /></td>
+            <td>上传图片</td><td><input type="file" value="" name="pic" id="picFile" /><img src="" id="picSrc" width="100px" height="100px" /></td>
         </tr>
         <tr>
             <td colspan="2" align="center"><input type="submit" value="发帖"/><input type="reset" value="重置"/></td>

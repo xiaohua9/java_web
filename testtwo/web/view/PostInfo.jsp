@@ -14,20 +14,36 @@
         <title>论坛中心</title>
         <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
         <script type="text/javascript">
-            /*首页，尾页，上一页，下一页*/
-            function go(p) {
-                page.value=p;
-                queryForm.submit();
-            }
-            /*跳转页面方法*/
-            function goPage() {
-                page.value=goto.value;
-                queryForm.submit();
-            }
-
+            $(function () {
+                $(".pageChoose").click(function () { //首页，尾页，上一页，下一页点击事件处理
+                    var choose = $(this).prop("name");
+                    $("#page").val(choose);
+                    $("#queryForm").submit();
+                });
+                $("#buttonGo").click(function () {//跳转页面处理
+                    var gotoPage = $("#goto").val();
+                    $("#page").val(gotoPage);
+                    $("#queryForm").submit();
+                });
+            });
             $(function () {/*将插入的数据以奇数行显示浅绿色*/
                 $(".trColor:odd").css({"background-color":"lightgreen"});
             })
+            $(function () {//ajax请求实现删除一行记录的局部刷新
+                $(".deleteOne").click(function () {
+                    var obj=$(this);
+                    var propName = obj.prop("name");
+                    $.post("PostInfoServlet",{"method":"delete","id":propName},function (data) {
+                        var number = parseInt(data);
+                        if (number>0){
+                            obj.parents("tr").remove();
+                            alert("删除成功");
+                        }else {
+                            alert("删除失败");
+                        }
+                    });
+                });
+            });
         </script>
         <style>
             #addStudent{
@@ -80,18 +96,18 @@
                         </c:if>
                     </c:forEach>
                 </td>
-                <td><a href="PostInfoServlet?method=delete&id=${postInfo.id}">删除</a></td>
+                <td><a  href="javascript:void(0)" name="${postInfo.id}" class="deleteOne" >删除</a></td>
                 <td><a href="/view/ChangePostInfo.jsp?id=${postInfo.id}&title=${postInfo.title}&postTime=${postInfo.postTime}&clickNum=${postInfo.clickNum}&content=${postInfo.content}&topicId=${postInfo.topicId}&pic=${postInfo.pic}" >修改</a></td>
                 <td><a href="PostInfoServlet?method=find&id=${postInfo.id}">详细</a></td>
             </tr>
     </c:forEach>
     <tr><td colspan="8" align="center">
-        <a  href="javascript:void(0)"  onclick="go(1)">首页</a>
-        <a  href="javascript:void(0)"  onclick="go(${requestScope.pageBean.currentPage-1})">上一页</a>
-        <a  href="javascript:void(0)"  onclick="go(${requestScope.pageBean.currentPage+1})">下一页</a>
-        <a  href="javascript:void(0)"  onclick="go(${requestScope.pageBean.totalPages})">尾页</a>
+        <a  href="javascript:void(0)"  name="1" class="pageChoose" >首页</a>
+        <a  href="javascript:void(0)"  name="${requestScope.pageBean.currentPage-1}" class="pageChoose" >上一页</a>
+        <a  href="javascript:void(0)"  name="${requestScope.pageBean.currentPage+1}" class="pageChoose" >下一页</a>
+        <a  href="javascript:void(0)"  name="${requestScope.pageBean.totalPages}" class="pageChoose" >尾页</a>
         ${requestScope.pageBean.currentPage}/${requestScope.pageBean.totalPages}页
-        <input type="text" id="goto" value="${requestScope.pageBean.currentPage}" style="width: 70px"/><input type="button" value="跳转" onclick="goPage()"/>
+        <input type="text" id="goto" value="${requestScope.pageBean.currentPage}" style="width: 70px"/><input type="button" value="跳转" id="buttonGo" />
     </td></tr>
 </table>
 </body>
