@@ -8,20 +8,14 @@ import com.service.impl.PostInfoServiceImpl;
 import com.service.impl.TopicServiceImpl;
 import com.utils.EmptyUtils;
 import com.utils.PageBean;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet(name = "PostInfoServlet",urlPatterns = "/view/PostInfoServlet")
 public class PostInfoServlet extends HttpServlet {
@@ -30,30 +24,7 @@ public class PostInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将前端的请求数据解码
         request.setCharacterEncoding("utf-8");
-        String method=null;
-        if (ServletFileUpload.isMultipartContent(request)){//多媒体提交
-            ServletFileUpload fileUpload=new ServletFileUpload(new DiskFileItemFactory());//文件上传对象
-            List<FileItem> parseRequest=null;
-            try {
-                parseRequest = fileUpload.parseRequest(request);//解析请求
-                request.setAttribute("parseRequest",parseRequest);//由于请求多媒体只能被解析一次，故以此传递
-                for (FileItem fileItem : parseRequest) {
-                    if (fileItem.isFormField()) {//普通表单项
-                        String fieldName = fileItem.getFieldName();//表单名
-                        String stringValue = fileItem.getString("utf-8");//表单值
-                        //针对各个属性依次赋值
-                        if ("method".equals(fieldName)) {
-                            method=stringValue;//获取识别码
-                            break;
-                        }
-                    }
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }else {//非多媒体提交
-            method = request.getParameter("method");//获取识别码
-        }
+        String method = request.getParameter("method");//获取识别码
         if ("add".equals(method)){
             this.doAdd(request,response);
         }else if ("delete".equals(method)){
@@ -71,45 +42,14 @@ public class PostInfoServlet extends HttpServlet {
     }
     //增加服务中心
     protected void doAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<FileItem> parseRequest=null;
-        String upload = req.getServletContext().getRealPath("upload");//当前项目下的upload 绝对路径
-        PostInfo postInfo=new PostInfo();//先创建一个没有赋值的
-        try {
-            parseRequest = ( List<FileItem>)req.getAttribute("parseRequest");//解析请求
-            for (FileItem fileItem:parseRequest){
-                if (fileItem.isFormField()){//普通表单项
-                    String fieldName = fileItem.getFieldName();//表单名
-                    String stringValue = fileItem.getString("utf-8");//表单值
-                    //针对各个属性依次赋值
-                    if ("title".equals(fieldName)){
-                        postInfo.setTitle(stringValue);
-                    }
-                    if ("postTime".equals(fieldName)){
-                        postInfo.setPostTime(stringValue);
-                    }
-                    if ("clickNum".equals(fieldName)){
-                        postInfo.setClickNum(Integer.parseInt(stringValue));
-                    }
-                    if ("content".equals(fieldName)){
-                        postInfo.setContent(stringValue);
-                    }
-                    if ("topicId".equals(fieldName)){
-                        postInfo.setTopicId(Integer.parseInt(stringValue));
-                    }
-                }else {//文件
-                    String newFileName = getFileName(fileItem.getName());
-                    postInfo.setPic(newFileName);//给文件名属性赋值
-                    File file=new File(upload+"/"+newFileName);
-                    try {
-                        fileItem.write(file);//将数据写入文件
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //得到表单提交的值，并构造对象
+        String title = req.getParameter("title");
+        String postTime = req.getParameter("postTime");
+        int clickNum = Integer.parseInt(req.getParameter("clickNum"));
+        String content = req.getParameter("content");
+        int topicId = Integer.parseInt(req.getParameter("topicId"));
+        String pic = req.getParameter("pic");
+        PostInfo postInfo=new PostInfo(title,postTime,clickNum,content,topicId,pic);//新增对象
         int flag = this.postInfoService.insert(postInfo);//将数据加入数据库，flag接收影响的行数
         if (flag>0){
             //插入成功
@@ -130,55 +70,16 @@ public class PostInfoServlet extends HttpServlet {
     }
     //更改服务中心
     protected void doChange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletFileUpload fileUpload=new ServletFileUpload(new DiskFileItemFactory());//文件上传对象
-        List<FileItem> parseRequest=null;
-        String upload = req.getServletContext().getRealPath("upload");//当前项目下的upload 绝对路径
-        PostInfo postInfo=new PostInfo();//先创建一个没有赋值的
-        try {
-            parseRequest = ( List<FileItem>)req.getAttribute("parseRequest");//解析请求
-            for (FileItem fileItem:parseRequest){
-                if (fileItem.isFormField()){//普通表单项
-                    String fieldName = fileItem.getFieldName();//表单名
-                    String stringValue = fileItem.getString("utf-8");//表单值
-                    //针对各个属性依次赋值
-                    if ("id".equals(fieldName)){
-                        postInfo.setId(Integer.parseInt(stringValue));
-                    }
-                    if ("title".equals(fieldName)){
-                        postInfo.setTitle(stringValue);
-                    }
-                    if ("postTime".equals(fieldName)){
-                        postInfo.setPostTime(stringValue);
-                    }
-                    if ("clickNum".equals(fieldName)){
-                        postInfo.setClickNum(Integer.parseInt(stringValue));
-                    }
-                    if ("content".equals(fieldName)){
-                        postInfo.setContent(stringValue);
-                    }
-                    if ("topicId".equals(fieldName)){
-                        postInfo.setTopicId(Integer.parseInt(stringValue));
-                    }
-                }else {//文件
-                    String oldFileName=fileItem.getName();
-                    if (!EmptyUtils.isEmpty(oldFileName)){
-                        //说明用户进行了头像更新
-                        String newFileName = getFileName(fileItem.getName());
-                        postInfo.setPic(newFileName);//给文件名属性赋值
-                        File file=new File(upload+"/"+newFileName);
-                        try {
-                            fileItem.write(file);//将数据写入文件
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //得到表单提交的值，并构造对象
+        int id = Integer.parseInt(req.getParameter("id"));
+        String title = req.getParameter("title");
+        String postTime = req.getParameter("postTime");
+        int clickNum = Integer.parseInt(req.getParameter("clickNum"));
+        String content = req.getParameter("content");
+        int topicId = Integer.parseInt(req.getParameter("topicId"));
+        String pic = req.getParameter("pic");
+        PostInfo postInfo=new PostInfo(id,title,postTime,clickNum,content,topicId,pic);//构造对象
         int update = this.postInfoService.update(postInfo);//修改
-        System.out.println("zhe"+postInfo);
         if (update>0){
             resp.setContentType("text/html;charset=UTF-8");//设置回应数据的编码
             resp.getWriter().print("<script>alert('修改成功');location.href='/view/PostInfoServlet'</script>");
@@ -224,12 +125,6 @@ public class PostInfoServlet extends HttpServlet {
         PostInfo postInfo = postInfoService.select(id);
         req.setAttribute("postInfo",postInfo);
         req.getRequestDispatcher("/view/OnePostInfo.jsp").forward(req,resp);
-    }
-    //构建新文件名
-    public String getFileName(String fileName){
-        String substring = fileName.substring(fileName.lastIndexOf("."));//得到扩展名
-        String newFileName = UUID.randomUUID().toString() + substring;
-        return newFileName;
     }
 }
 

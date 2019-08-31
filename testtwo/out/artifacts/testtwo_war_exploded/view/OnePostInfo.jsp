@@ -1,18 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/8/29
-  Time: 17:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>详细</title>
 </head>
 <body style="background-color: lightyellow">
-<form action="PostInfoServlet" method="post" enctype="multipart/form-data" onsubmit="return infoCheckData()">
+<form action="PostInfoServlet" method="post" >
     <input type="hidden" name="method" value="change"/><%--更新识别--%>
     <input type="hidden" name="id" value="${requestScope.postInfo.id}"/>
     <input type="hidden" name="title" value="${requestScope.postInfo.title}"/>
