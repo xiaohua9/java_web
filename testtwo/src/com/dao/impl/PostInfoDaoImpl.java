@@ -46,24 +46,8 @@ public class PostInfoDaoImpl implements PostInfoDaoI {
 
     @Override
     public int update(PostInfo postInfo) {
-        if (EmptyUtils.isEmpty(postInfo.getPic())){
-            //说明不需要更新头像
-            //构造sql字符串
-            String sql = "update postinfo set title=?,postTime=?,clickNum=?,content=?,topicId=? where id=?";
-            //构造sql执行对象
-            QueryRunner runner = new QueryRunner(dataSource);
-            //调用工具执行sql
-            int flag = 0;//sql影响的行数
-            try {
-                flag = runner.update(sql, postInfo.getTitle(), postInfo.getPostTime(), postInfo.getClickNum(), postInfo.getContent(), postInfo.getTopicId(), postInfo.getId());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return flag;//返回sql影响的行数
-        }else {
             //构造sql字符串
             String sql = "update postinfo set title=?,postTime=?,clickNum=?,content=?,topicId=?,pic=? where id=?";
-
             //构造sql执行对象
             QueryRunner runner = new QueryRunner(dataSource);
             //调用工具执行sql
@@ -74,7 +58,6 @@ public class PostInfoDaoImpl implements PostInfoDaoI {
                 e.printStackTrace();
             }
             return flag;//返回sql影响的行数
-        }
     }
 ///根据编号查一条学生记录
     @Override
